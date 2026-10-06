@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+/* ---------- Design tokens: dark navy is the default; light is optional ---------- */
+:root {
+  --bg:#F2F5FB; --solid:#FFFFFF; --surface:#FFFFFF; --ink:#0B1530; --mute:#62708F; --line:rgba(11,21,48,.10);
+  --brand:#2F63F0; --brand-2:#0EA5E9; --ok:#12A66A; --warn:#D99A0B; --bad:#DC4650; --violet:#6D5BF5;
+  --shadow:0 1px 2px rgba(11,21,48,.05),0 10px 28px -14px rgba(11,21,48,.18);
+  --mesh:radial-gradient(60rem 28rem at 50% -12%,rgba(47,99,240,.09),transparent 65%);
+}
+[data-theme="dark"] {
+  --bg:#050B1D; --solid:#0B1531; --surface:#0D1938; --ink:#E7ECF9; --mute:#8794B6; --line:rgba(134,155,208,.16);
+  --brand:#4C82FF; --brand-2:#22B8E8; --ok:#2FBF8A; --warn:#F0B429; --bad:#F26B76; --violet:#8B7BFF;
+  --shadow:0 1px 0 rgba(255,255,255,.03) inset,0 14px 34px -18px rgba(0,0,0,.65);
+  --mesh:radial-gradient(60rem 28rem at 50% -14%,rgba(76,130,255,.14),transparent 65%);
+}
+@theme inline {
+  --color-bg:var(--bg); --color-solid:var(--solid); --color-ink:var(--ink); --color-mute:var(--mute); --color-line:var(--line);
+  --color-brand:var(--brand); --color-brand2:var(--brand-2); --color-ok:var(--ok); --color-warn:var(--warn); --color-bad:var(--bad); --color-violet:var(--violet);
+  --font-sans:"Plus Jakarta Sans",system-ui,sans-serif;
+}
+html { color-scheme: light; } [data-theme="dark"] { color-scheme: dark; }
+html, body { max-width: 100%; overflow-x: clip; -webkit-tap-highlight-color: transparent; }
+body { background: var(--bg) var(--mesh) fixed; color: var(--ink); font-family: var(--font-sans); font-feature-settings: "tnum" 1; -webkit-font-smoothing: antialiased; overscroll-behavior-y: none; touch-action: manipulation; }
+button, a, summary { touch-action: manipulation; }
+:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; border-radius: 10px; }
+
+/* ---------- Surfaces ---------- */
+.glass { background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); }
+.glass-strong { background: var(--solid); border: 1px solid var(--line); box-shadow: 0 28px 70px -24px rgba(0,0,0,.7); }
+.lift { transition: transform .25s cubic-bezier(.22,1,.36,1), border-color .25s; }
+.lift:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--brand) 45%, var(--line)); }
+@media (hover: none) { .lift:hover { transform: none; } }
+.grad-text { background: linear-gradient(120deg, var(--brand), var(--brand-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.btn-primary { background: linear-gradient(180deg, color-mix(in srgb, var(--brand) 88%, white), var(--brand)); color: #fff; box-shadow: 0 1px 0 rgba(255,255,255,.2) inset, 0 8px 20px -10px var(--brand); }
+.btn-danger { background: linear-gradient(180deg, color-mix(in srgb, var(--bad) 88%, white), var(--bad)); color: #fff; box-shadow: 0 1px 0 rgba(255,255,255,.2) inset, 0 8px 20px -10px var(--bad); }
+.field { min-height: 2.75rem; width: 100%; border-radius: .75rem; border: 1px solid var(--line); background: color-mix(in srgb, var(--bg) 55%, var(--solid)); padding: 0 .9rem; font-size: 1rem; color: var(--ink); transition: border-color .2s, box-shadow .2s; }
+.field:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 4px color-mix(in srgb, var(--brand) 20%, transparent); }
+select.field { appearance: none; background-image: linear-gradient(45deg,transparent 50%,var(--mute) 50%),linear-gradient(135deg,var(--mute) 50%,transparent 50%); background-position: calc(100% - 18px) 52%, calc(100% - 13px) 52%; background-size: 5px 5px; background-repeat: no-repeat; padding-right: 2rem; }
+textarea.field { padding-top: .65rem; padding-bottom: .65rem; }
+.shimmer { background: linear-gradient(100deg, var(--line) 30%, color-mix(in srgb, var(--line) 30%, transparent) 50%, var(--line) 70%); background-size: 200% 100%; animation: shimmer 1.4s infinite linear; }
+@keyframes shimmer { to { background-position: -200% 0; } }
+@keyframes ping-soft { 75%, 100% { transform: scale(2.4); opacity: 0; } }
+.ping-soft { animation: ping-soft 1.8s cubic-bezier(0,0,.2,1) infinite; }
+::-webkit-scrollbar { width: 10px; height: 10px; } ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 99px; }
+
+th { white-space: nowrap; }
